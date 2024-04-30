@@ -1,0 +1,15 @@
+env: "local" # "local" | "production"
+storage_path: "C:/Users/Denis/Downloads/storage.db"
+http_server:
+    host: "127.0.0.1"
+    port: 8888
+    timeout_read: 60s
+    timeout_write: 60s
+    timeout_idle: 60s
+logger:
+    level: "debug"
+binance:
+    spot_limit: 1000
+    spot_commission: 0.075
+    futures_limit: 1500
+    futures_commission: 0.02
