@@ -38,7 +38,7 @@ func Start(appService *core_services_app.AppService, logger *slog.Logger, contro
 	quotes, err := appService.QuoteService.LoadRange(request.Symbol, quoteRange, appService.WebsocketService.ProgressChan, progress)
 	startTime := time.Now()
 
-	numWorkers := 1 // runtime.NumCPU()
+	numWorkers := runtime.NumCPU()
 	var wg sync.WaitGroup
 	wg.Add(numWorkers)
 
