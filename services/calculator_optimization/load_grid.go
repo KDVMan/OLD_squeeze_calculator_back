@@ -27,10 +27,12 @@ func (calculatorOptimizationService *CalculatorOptimizationService) loadGrid() {
 		calculatorOptimizationService.controlCalculatorModel.StopPercentStep,
 	)
 
-	var stopTimeOptions []int64
-	var stopPercentOptions []int64
+	stopTimeOptions := []int64{-1}
+	stopPercentOptions := []int64{-1}
 
 	if calculatorOptimizationService.controlCalculatorModel.StopTime {
+		stopTimeOptions = []int64{}
+
 		for _, value := range calculatorOptimizationService.generateRange(
 			calculatorOptimizationService.controlCalculatorModel.StopTimeFrom,
 			calculatorOptimizationService.controlCalculatorModel.StopTimeTo,
@@ -41,15 +43,12 @@ func (calculatorOptimizationService *CalculatorOptimizationService) loadGrid() {
 	}
 
 	if calculatorOptimizationService.controlCalculatorModel.StopPercent {
+		stopPercentOptions = []int64{}
+
 		for _, value := range calculatorOptimizationService.generateRange(stopPercentMin, stopPercentMax, stopPercentStep) {
 			stopPercentOptions = append(stopPercentOptions, value)
 		}
 	}
-
-	// if calculatorOptimizationService.controlCalculatorModel.StopTime && calculatorOptimizationService.controlCalculatorModel.StopPercent {
-	// 	stopTimeOptions = append(stopTimeOptions, -1)
-	// 	stopPercentOptions = append(stopPercentOptions, -1)
-	// }
 
 	for _, bind := range calculatorOptimizationService.controlCalculatorModel.Bind {
 		for percentIn := percentInMin; percentIn <= percentInMax; percentIn += percentInStep {
@@ -62,10 +61,6 @@ func (calculatorOptimizationService *CalculatorOptimizationService) loadGrid() {
 					}
 
 					for _, stopPercent := range stopPercentOptions {
-						if stopTime == -1 && stopPercent == -1 && calculatorOptimizationService.controlCalculatorModel.StopTime && calculatorOptimizationService.controlCalculatorModel.StopPercent {
-							continue
-						}
-
 						key := fmt.Sprintf("%s-%d-%d-%d-%d", bind, percentIn, percentOut, stopTime, stopPercent)
 
 						adjustedStopPercent := float64(stopPercent)
