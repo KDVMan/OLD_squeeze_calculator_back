@@ -1,5 +1,5 @@
 env: "local" # "local" | "production"
-storage_path: "C:/Users/Denis/Downloads/storage.db"
+storage_path: "./storage.db"
 http_server:
     host: "127.0.0.1"
     port: 8888
